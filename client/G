@@ -1,0 +1,1 @@
+gcc client.c ../common/common.c ../common/data.c ../common/udp_client.c  -I ../common/ -D _D
