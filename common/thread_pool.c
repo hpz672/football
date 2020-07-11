@@ -14,7 +14,7 @@ void do_work(struct User *user){
     int rec = recv(user->fd, (void*)&msg, sizeof(msg), 0);
     //printf("msg: %s\nname: %s\ntype: %d\n", msg.msg, msg.name, msg.type);
     //printf("msg: %s\nname: %s\ntype: %d\n", msg.msg, user->name, msg.type);
-    printf(L_PINK"Recv Datapack, size: %d, msg: %d\n"NONE, rec, (int)sizeof(msg));
+    DBG(L_PINK"Recv Datapack, size: %d, msg: %d\n"NONE, rec, (int)sizeof(msg));
     if(msg.type & CHAT_WALL) {
         DBG(L_BLUE"msg.type: %d, msg.name: %s\n"NONE, msg.type, msg.name); 
         send_all(&msg);
@@ -59,6 +59,12 @@ void do_work(struct User *user){
             strcpy(msg.msg, list);
             DBG(BLUE"Send Data :"NONE"%s\n", msg.msg);
             msg.type = CHAT_SYS;
+            send(user->fd, (void *)&msg, sizeof(msg), 0);
+        } else if(msg.msg[1] == '2') {
+            //DBG(BLUE"Send Data :"NONE"%s\n", msg.msg);
+            msg.type = CHAT_SYS;
+            strcpy(msg.msg, "Anonymous Function: Not finished.");
+            DBG(BLUE"Send Data :"NONE"%s\n", msg.msg);
             send(user->fd, (void *)&msg, sizeof(msg), 0);
         } else {
             strcpy(msg.msg, "Invalid Common.");

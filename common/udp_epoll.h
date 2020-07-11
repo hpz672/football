@@ -21,7 +21,7 @@ void send_all(struct ChatMsg *msg);
 void close_all();
 
 int find_person(char *name);
-void find_list(char *list);
+int find_list(char *list);
 
 void add_to_sub_reactor(struct User *user);
 

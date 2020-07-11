@@ -127,14 +127,15 @@ int find_person(char *name) {
     return -1;
 }
 
-void find_list(char *list) {
+int find_list(char *list) {
     strcpy(list, "# List #\n");
-    int i;
+    int i, k = 0;
     for(i = 0; i < MAX; i++) {
         if(rteam[i].online == 1) {
             strcat(list, "(red)  ");
             strcat(list, rteam[i].name);
             strcat(list, "\n");
+            k++;
         }
     }
     for(i = 0; i < MAX; i++) {
@@ -142,8 +143,13 @@ void find_list(char *list) {
             strcat(list, "(blue) ");
             strcat(list, bteam[i].name);
             strcat(list, "\n");
-        }
+            k++;
+        }   
     }
+    char str[32];
+    sprintf(str, "Total %d player online.\n", k);
+    strcat(list, str);
+    return k;
 }
 
 void add_to_sub_reactor(struct User *user) {
